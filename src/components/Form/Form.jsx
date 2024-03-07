@@ -51,15 +51,21 @@ function FormRegister() {
     // .catch((error) => {
     //   console.error('Error posting data:', error);
     // });
-    
+
     axios.post('https://test-3a7f8-default-rtdb.firebaseio.com/users.json', userInfo)
-    .then(function (response) {
-      console.log(response);
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
-}
+      .then(function (response) {
+        setFirstName('')
+        setLastName('')
+        setEmail('')
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+
+
+
+  }
 
   return (
     <>
