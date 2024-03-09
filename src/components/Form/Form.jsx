@@ -62,9 +62,6 @@ function FormRegister() {
       .catch(function (error) {
         console.log(error);
       });
-
-
-
   }
 
   return (
