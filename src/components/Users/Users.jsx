@@ -11,10 +11,10 @@ const Users = () => {
     const [userId, setUserId] = useState('')
     const [getData, setGetData] = useState(false)
     const [showDeleteModal, setShowDeleteModal] = useState(false)
-    const [showEditModal, setShowEditModal] = useState(false)
+    const [showTicketModal, setShowTicketModal] = useState(false)
 
-    const [firstName, setFirstName] = useState('')
-    const [lastName, setLastName] = useState('')
+    const [subject, setSubject] = useState('')
+    const [message, setMessage] = useState('')
     const [email, setEmail] = useState('')
 
 
@@ -22,7 +22,6 @@ const Users = () => {
         axios.get('https://test-3a7f8-default-rtdb.firebaseio.com/users.json')
             .then(response => {
                 setUsers(Object.entries(response.data))
-                console.log(Object.entries(response.data));
             })
     }, [getData])
 
@@ -30,8 +29,8 @@ const Users = () => {
         let mainUserInfo = users.find(user => user[0] == userId)
 
         if (mainUserInfo) {
-            setFirstName(mainUserInfo[1].subjectTicket)
-            setLastName(mainUserInfo[1].message)
+            setSubject(mainUserInfo[1].subjectTicket)
+            setMessage(mainUserInfo[1].message)
             setEmail(mainUserInfo[1].email)
         }
     }, [userId])
@@ -75,7 +74,7 @@ const Users = () => {
 
                                 <FaEye className="cursor-pointer mt-1"
                                     onClick={() => {
-                                        setShowEditModal(true)
+                                        setShowTicketModal(true)
                                         setUserId(user[0])
                                     }}
                                 />
@@ -110,29 +109,29 @@ const Users = () => {
 
 
 
-            {/* Edit Modal */}
+            {/* Message Modal */}
             <Modal
-                show={showEditModal}
+                show={showTicketModal}
                 aria-labelledby="contained-modal-title-vcenter"
                 centered
             >
                 <Modal.Header closeButton>
                     <Modal.Title id="contained-modal-title-vcenter">
-                        Edit Modal
+                        Ticket Message Modal
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     {/* <Form.Group className="mb-3" controlId="formBasicPassword">
-                        <Form.Label>FirstName: </Form.Label>
-                        <Form.Control type="text" value={firstName} placeholder="Enter FirstName"
-                            onChange={(event) => setFirstName(event.target.value)}
+                        <Form.Label>subject: </Form.Label>
+                        <Form.Control type="text" value={subject} placeholder="Enter subject"
+                            onChange={(event) => setSubject(event.target.value)}
                         />
                     </Form.Group>
 
                     <Form.Group className="mb-3" controlId="formBasicPassword">
-                        <Form.Label>LastName: </Form.Label>
-                        <Form.Control type="text" value={lastName} placeholder="Enter LastName"
-                            onChange={(event) => setLastName(event.target.value)}
+                        <Form.Label>message: </Form.Label>
+                        <Form.Control type="text" value={message} placeholder="Enter message"
+                            onChange={(event) => setMessage(event.target.value)}
                         />
                     </Form.Group>
 
@@ -143,10 +142,10 @@ const Users = () => {
                         />
                     </Form.Group> */}
 
-                    <p>{lastName}</p>
+                    <p>{message}</p>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button onClick={() => setShowEditModal(false)}>Close</Button>
+                    <Button onClick={() => setShowTicketModal(false)}>Close</Button>
                     {/* <Button onClick={() => editHandler()}>Edit</Button> */}
                 </Modal.Footer>
             </Modal>
