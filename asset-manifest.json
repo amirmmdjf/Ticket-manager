@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/Ticket-manager/static/css/main.f4274e71.css",
-    "main.js": "/Ticket-manager/static/js/main.1d60d6eb.js",
+    "main.js": "/Ticket-manager/static/js/main.8120852d.js",
     "index.html": "/Ticket-manager/index.html",
     "main.f4274e71.css.map": "/Ticket-manager/static/css/main.f4274e71.css.map",
-    "main.1d60d6eb.js.map": "/Ticket-manager/static/js/main.1d60d6eb.js.map"
+    "main.8120852d.js.map": "/Ticket-manager/static/js/main.8120852d.js.map"
   },
   "entrypoints": [
     "static/css/main.f4274e71.css",
-    "static/js/main.1d60d6eb.js"
+    "static/js/main.8120852d.js"
   ]
 }
