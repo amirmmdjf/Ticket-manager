@@ -3,9 +3,9 @@ import FormRegister from "./components/Form/Form"
 import Users from "./components/Users/Users"
 
 let routes = [
-    { path: '/', element: <Home /> },
-    { path: '/form', element: <FormRegister /> },
-    { path: '/users', element: <Users /> }
+    { path: '/Ticket-manager/', element: <Home /> },
+    { path: '/Ticket-manager/form', element: <FormRegister /> },
+    { path: '/Ticket-manager/users', element: <Users /> }
 ]
 
 export default routes;
