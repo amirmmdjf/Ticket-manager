@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
-import { Table, Modal, Button, Form } from "react-bootstrap";
-import { MdDelete, MdEdit } from "react-icons/md";
+import { Table, Modal, Button } from "react-bootstrap";
+import { MdDelete, MdEdit} from "react-icons/md";
+import { FaEye } from "react-icons/fa6";
+
 import axios from "axios";
 
 const Users = () => {
@@ -20,15 +22,16 @@ const Users = () => {
         axios.get('https://test-3a7f8-default-rtdb.firebaseio.com/users.json')
             .then(response => {
                 setUsers(Object.entries(response.data))
+                console.log(Object.entries(response.data));
             })
     }, [getData])
 
-    useEffect(()=>{
+    useEffect(() => {
         let mainUserInfo = users.find(user => user[0] == userId)
 
-        if(mainUserInfo){
-            setFirstName(mainUserInfo[1].firstName)
-            setLastName(mainUserInfo[1].lastName)
+        if (mainUserInfo) {
+            setFirstName(mainUserInfo[1].subjectTicket)
+            setLastName(mainUserInfo[1].message)
             setEmail(mainUserInfo[1].email)
         }
     }, [userId])
@@ -42,54 +45,14 @@ const Users = () => {
     }
 
 
-    async function editHandler() {
-        // try {
-        //     const response = await axios.put(`https://test-3a7f8-default-rtdb.firebaseio.com/users/${userId}.json`);
-
-        //     // Assuming setFirstName, setLastName, and setEmail are async functions that update state
-        //     await Promise.all([
-        //         setFirstName(''),
-        //         setLastName(''),
-        //         setEmail('')
-        //     ]);
-
-        //     console.log(response);
-        // } catch (error) {
-        //     console.error(error);
-        // }
-
-        let userNewInfos = {
-            firstName,
-            lastName,
-            email
-        }
-
-        // await fetch(`https://test-3a7f8-default-rtdb.firebaseio.com/users/${userId}.json`, {
-        //     method: 'PUT',
-        //     body: JSON.stringify(userNewInfos)
-        // }).then(response => console.log(response))
-
-        try {
-            const response = await axios.put(`https://test-3a7f8-default-rtdb.firebaseio.com/users/${userId}.json`, userNewInfos);
-            console.log(response);
-        } catch (error) {
-            console.log(error);
-        }
-
-            
-        setShowEditModal(false)
-        setGetData(!getData)
-    }
-
-
     return (
         <div className="w-[1000px] text-center mx-auto mt-[100px]">
             <Table className="" striped bordered hover>
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>First Name</th>
-                        <th>Last Name</th>
+                        <th>Subject</th>
+                        <th>Ticket message</th>
                         <th>Email</th>
                         <th>Actions</th>
                     </tr>
@@ -99,17 +62,18 @@ const Users = () => {
                     {users.map((user, index) => (
                         <tr>
                             <td>{index + 1}</td>
-                            <td>{user[1].firstName}</td>
-                            <td>{user[1].lastName}</td>
+                            <td>{user[1].subjectTicket}</td>
+                            <td>{user[1].message.slice(0, 50)}...</td>
                             <td>{user[1].email}</td>
                             <td className="flex justify-evenly h-[40px]">
-                                <MdDelete className="cursor-pointer"
+                                <MdDelete className="cursor-pointer mt-1"
                                     onClick={() => {
                                         setShowDeleteModal(true)
                                         setUserId(user[0])
                                     }}
                                 />
-                                <MdEdit className="cursor-pointer"
+
+                                <FaEye className="cursor-pointer mt-1"
                                     onClick={() => {
                                         setShowEditModal(true)
                                         setUserId(user[0])
@@ -158,7 +122,7 @@ const Users = () => {
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <Form.Group className="mb-3" controlId="formBasicPassword">
+                    {/* <Form.Group className="mb-3" controlId="formBasicPassword">
                         <Form.Label>FirstName: </Form.Label>
                         <Form.Control type="text" value={firstName} placeholder="Enter FirstName"
                             onChange={(event) => setFirstName(event.target.value)}
@@ -177,11 +141,13 @@ const Users = () => {
                         <Form.Control type="email" value={email} placeholder="Enter Email"
                             onChange={(event) => setEmail(event.target.value)}
                         />
-                    </Form.Group>
+                    </Form.Group> */}
+
+                    <p>{lastName}</p>
                 </Modal.Body>
                 <Modal.Footer>
                     <Button onClick={() => setShowEditModal(false)}>Close</Button>
-                    <Button onClick={() => editHandler()}>Edit</Button>
+                    {/* <Button onClick={() => editHandler()}>Edit</Button> */}
                 </Modal.Footer>
             </Modal>
         </div>
