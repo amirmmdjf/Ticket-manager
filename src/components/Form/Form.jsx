@@ -5,22 +5,22 @@ import axios from 'axios';
 
 function FormRegister() {
 
-  const [firstName, setFirstName] = useState('')
-  const [lastName, setLastName] = useState('')
+  const [subjectTicket, setSubjectTicket] = useState('')
+  const [message, setMessage] = useState('')
   const [email, setEmail] = useState('')
 
 
   useEffect(() => {
-    let data = [firstName, lastName, email]
+    let data = [subjectTicket, message, email]
     console.log(data);
-  }, [firstName, lastName, email])
+  }, [subjectTicket, message, email])
 
-  const changeFirstNameHandler = (event) => {
-    setFirstName(event.target.value)
+  const changeSubjectTicketHandler = (event) => {
+    setSubjectTicket(event.target.value)
   }
 
-  const changeLastNameHandler = (event) => {
-    setLastName(event.target.value)
+  const changeMessageHandler = (event) => {
+    setMessage(event.target.value)
   }
 
   const changeEmailHandler = (event) => {
@@ -30,15 +30,15 @@ function FormRegister() {
   const registerHandler = (event) => {
     event.preventDefault()
 
-    let userInfo = {
-      firstName,
-      lastName,
+    let ticketInfo = {
+      subjectTicket,
+      message,
       email
     }
 
     // fetch('https://test-3a7f8-default-rtdb.firebaseio.com/users.json', {
     //   method: 'POST',
-    //   body: JSON.stringify(userInfo)
+    //   body: JSON.stringify(ticketInfo)
     // }).then((response) => {
     //   if (!response.ok) {
     //     throw new Error(`HTTP error! Status: ${response.status}`);
@@ -52,10 +52,10 @@ function FormRegister() {
     //   console.error('Error posting data:', error);
     // });
 
-    axios.post('https://test-3a7f8-default-rtdb.firebaseio.com/users.json', userInfo)
+    axios.post('https://test-3a7f8-default-rtdb.firebaseio.com/users.json', ticketInfo)
       .then(function (response) {
-        setFirstName('')
-        setLastName('')
+        setSubjectTicket('')
+        setMessage('')
         setEmail('')
         console.log(response);
       })
@@ -67,20 +67,20 @@ function FormRegister() {
   return (
     <>
       <Form onSubmit={registerHandler} className='w-[500px] h-max py-5 px-8 rounded-lg mx-auto mt-20 bg-[#212529] text-white'>
-        <Form.Label className='font-semibold' htmlFor="first-name">First name</Form.Label>
+        <Form.Label className='font-semibold' htmlFor="subjectTicket">Subject Ticket</Form.Label>
         <Form.Control
           type="text"
-          id="first-name"
-          value={firstName}
-          onChange={changeFirstNameHandler}
+          id="subjectTicket"
+          value={subjectTicket}
+          onChange={changeSubjectTicketHandler}
         />
 
-        <Form.Label className='mt-4 font-semibold' htmlFor="last-name">Last name</Form.Label>
-        <Form.Control
-          type="text"
-          id="last-name"
-          value={lastName}
-          onChange={changeLastNameHandler}
+        <Form.Label className='mt-4 font-semibold' htmlFor="message">Write your message</Form.Label>
+        <Form.Control as="textarea"
+          aria-label="With textarea"
+          id="message"
+          value={message}
+          onChange={changeMessageHandler}
         />
 
         <Form.Label className='mt-4 font-semibold' htmlFor="Email">Email</Form.Label>
